@@ -25,12 +25,18 @@ func Routes(cfg *Config) http.Handler {
 
 	router.Get("/time", cfg.getTime)
 
-	router.Route("/", func(r chi.Router) {
-		r.Get("/{shortUrl}", cfg.redirect)
+	router.Handle("/new/*", http.StripPrefix("/new", http.FileServer(http.Dir("../../web/"))))
+
+	router.Route("/{shortUrl}", func(r chi.Router) {
+		r.Get("/", cfg.redirect)
 	})
 
 	router.Route("/shorten", func(r chi.Router) {
 		r.Post("/", cfg.shorten)
+	})
+
+	router.Route("/", func(r chi.Router) {
+		r.Handle("/", http.RedirectHandler("/new/", http.StatusPermanentRedirect))
 	})
 
 	return router

@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	dsn := os.Getenv("DSN")
 	baseUrl := os.Getenv("BASE_URL")
 
