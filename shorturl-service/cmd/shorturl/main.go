@@ -23,7 +23,7 @@ func main() {
 	}
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%s", "80"),
+		Addr:    fmt.Sprintf(":%s", "9000"),
 		Handler: api.Routes(&cfg),
 	}
 

@@ -33,6 +33,12 @@ const callShortUrlApi = async (obj) =>  {
   try {
     const promise = await fetch(config.shortUrlApi + '/shorten/', options);
     const response = await promise.json();
+
+    if (response.error) {
+      showErrorSection();
+      return;
+    }
+
     const shortUrl = response.data;
     return shortUrl;
 
