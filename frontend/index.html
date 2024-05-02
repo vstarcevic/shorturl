@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="script.js"></script> 
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="title-text">URL SHORTENER</div>
+    <section class="section">
+        <div class="div-section">
+            <div class="section-title-text">Paste link you want shortened</div>
+            <div class="section-text">It must start with http or https</div>
+            <input class="input" type="text" id="longUrl">
+            <button class="button" id="btnShorten">Shorten</button>
+        </div>
+    </section>  
+    <section class="section" id="success-section" style="display:none">
+        <div class="div-section">
+            <input class="input" disabled type="text" id="shortUrl" value="">
+            <button class="button" onclick="copyLink()" id="btnCopy">Copy</button>
+        </div>
+    </section>
+    <section class="section" id="error-section" style="display:none">
+        <div class="div-section">
+            <span>There has been an error.</span>
+        </div>
+    </section>
+</body>
+</html>
