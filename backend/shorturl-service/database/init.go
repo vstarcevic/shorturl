@@ -41,7 +41,7 @@ func ConnectToDB(dsn string) *sql.DB {
 		}
 
 		if counts > 10 {
-			log.Println(err)
+			log.Panic(err)
 			return nil
 		}
 

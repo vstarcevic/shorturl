@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <script src="script.js"></script> 
+    <script src="config.js"></script>
+    <script src="script.js"></script>
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -11,9 +13,9 @@
             <div class="section-title-text">Paste link you want shortened</div>
             <div class="section-text">It must start with http or https</div>
             <input class="input" type="text" id="longUrl">
-            <button class="button" id="btnShorten">Shorten</button>
+            <button class="button" onclick="shortenUrl()" id="btnShorten">Shorten</button>
         </div>
-    </section>  
+    </section>
     <section class="section" id="success-section" style="display:none">
         <div class="div-section">
             <input class="input" disabled type="text" id="shortUrl" value="">
@@ -23,6 +25,7 @@
     <section class="section" id="error-section" style="display:none">
         <div class="div-section">
             <span>There has been an error.</span>
+            <span>Please check if URL starts with http and it's not empty</span>
         </div>
     </section>
 </body>
