@@ -5,7 +5,6 @@ go 1.22.0
 require (
 	github.com/go-chi/chi v1.5.5
 	github.com/jackc/pgx/v5 v5.5.5
-	github.com/lib/pq v1.10.9
 )
 
 require (
@@ -15,8 +14,8 @@ require (
 )
 
 require (
-	github.com/go-chi/chi/v5 v5.0.12 // indirect
-	github.com/go-chi/cors v1.2.1 // indirect
+	github.com/go-chi/chi/v5 v5.0.12
+	github.com/go-chi/cors v1.2.1
 	github.com/jackc/pgconn v1.14.3
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
