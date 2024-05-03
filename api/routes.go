@@ -1,12 +1,18 @@
 package api
 
 import (
+	"embed"
+	"io/fs"
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 )
+
+//go:embed static
+var embeddedFS embed.FS
 
 func Routes(cfg *Config) http.Handler {
 	router := chi.NewRouter()
@@ -25,7 +31,12 @@ func Routes(cfg *Config) http.Handler {
 
 	router.Get("/time", cfg.getTime)
 
-	router.Handle("/new/*", http.StripPrefix("/new", http.FileServer(http.Dir("../../embed/"))))
+	serverRoot, err := fs.Sub(embeddedFS, "static")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	router.Handle("/new/*", http.StripPrefix("/new", http.FileServer(http.FS(serverRoot))))
 
 	router.Route("/{shortUrl}", func(r chi.Router) {
 		r.Get("/", cfg.redirect)
