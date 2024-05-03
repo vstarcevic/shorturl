@@ -25,7 +25,7 @@ func Routes(cfg *Config) http.Handler {
 
 	router.Get("/time", cfg.getTime)
 
-	router.Handle("/new/*", http.StripPrefix("/new", http.FileServer(http.Dir("../../web/"))))
+	router.Handle("/new/*", http.StripPrefix("/new", http.FileServer(http.Dir("../../embed/"))))
 
 	router.Route("/{shortUrl}", func(r chi.Router) {
 		r.Get("/", cfg.redirect)

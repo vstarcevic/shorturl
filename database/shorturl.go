@@ -8,7 +8,7 @@ import (
 
 var mutex sync.Mutex
 
-func CreateShortUrl(conn *sql.DB, longUrl string) (string, error) {
+func CreateShortURL(conn *sql.DB, longUrl string) (string, error) {
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -44,7 +44,7 @@ func CreateShortUrl(conn *sql.DB, longUrl string) (string, error) {
 	return shortUrl, nil
 }
 
-func GetLongUrl(conn *sql.DB, shortUrl string) (string, error) {
+func GetLongURL(conn *sql.DB, shortUrl string) (string, error) {
 
 	var longUrl string
 

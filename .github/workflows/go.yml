@@ -23,15 +23,12 @@ jobs:
 
     - name: Install dependencies
       run: | 
-        cd shorturl-service
         go mod tidy
 
     - name: Build
       run: |
-        cd shorturl-service/cmd/shorturl
         go build .
 
     - name: Test    
       run: |
-        cd shorturl-service
         go test -v ./...

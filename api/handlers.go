@@ -47,7 +47,7 @@ func (cfg *Config) shorten(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	shortUrl, err := database.CreateShortUrl(cfg.Db, requestPayload.LongUrl)
+	shortUrl, err := database.CreateShortURL(cfg.Db, requestPayload.LongUrl)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, err)
 		return
@@ -71,7 +71,7 @@ func (cfg *Config) redirect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	longUrl, err := database.GetLongUrl(cfg.Db, shortUrl)
+	longUrl, err := database.GetLongURL(cfg.Db, shortUrl)
 	if err != nil {
 		writeError(w, http.StatusNotFound, err)
 		return
