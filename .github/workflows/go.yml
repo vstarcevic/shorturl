@@ -27,6 +27,7 @@ jobs:
 
     - name: Build
       run: |
+        cd cmd/shorturl
         go build .
 
     - name: Test    
