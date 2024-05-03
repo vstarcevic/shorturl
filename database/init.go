@@ -3,6 +3,8 @@ package database
 import (
 	"database/sql"
 	"log"
+
+	"log/slog"
 	"time"
 
 	_ "github.com/jackc/pgconn"
@@ -33,19 +35,20 @@ func ConnectToDB(dsn string) *sql.DB {
 		connection, err := openDB(dsn)
 
 		if err != nil {
-			log.Println("Postgres not yet ready ...")
+			slog.Warn("Postgres not yet ready ...")
 			counts++
 		} else {
-			log.Println("Connected to postgres!")
+			slog.Info("Connected to postgres!")
 			return connection
 		}
 
 		if counts > 10 {
+			slog.Error("Cannot connect to postgres.")
 			log.Panic(err)
 			return nil
 		}
 
-		log.Println("Backing off for two seconds...")
+		slog.Warn("Backing off for two seconds...")
 		time.Sleep(2 * time.Second)
 		continue
 	}
