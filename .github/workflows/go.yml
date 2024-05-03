@@ -28,8 +28,18 @@ jobs:
     - name: Build
       run: |
         cd cmd/shorturl
-        go build .
+        go build . -o ../../shorturl
 
     - name: Test    
       run: |
         go test -v ./...
+
+    - name: Deploy 
+      uses: appleboy/ssh-action@master
+      with: 
+        host: ${{ secrets.HOST}}
+        username: ${{ secrets.USERNAME}}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.PORT}}
+        script: whoami
+
