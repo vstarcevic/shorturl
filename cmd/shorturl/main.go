@@ -14,6 +14,13 @@ func main() {
 	dsn := os.Getenv("DSN")
 	baseUrl := os.Getenv("BASE_URL")
 
+	if dsn == "" {
+		dsn = "host=localhost port=5432 dbname=shorturl user=postgres password=password"
+	}
+	if baseUrl == "" {
+		baseUrl = "localhost"
+	}
+
 	dbConn := database.ConnectToDB(dsn)
 	defer dbConn.Close()
 
