@@ -48,7 +48,7 @@ jobs:
           git pull
           echo Building ShortUrl...
           cd /home/deployer/shorturl/cmd/shorturl
-          go build -o ../../shorturl
+          /usr/local/go/bin/go build -o ../../shorturl
           echo Restarting Service...
           sudo systemctl restart shorturl-service.service
 
