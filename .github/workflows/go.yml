@@ -43,12 +43,11 @@ jobs:
         port: ${{ secrets.PORT}}
         script: 
           echo Starting deployment for ShortURL
-          echo Pulling from Github...
-          cd #
-          cd shorturl
+          echo Pulling from Github...          
+          cd /home/deployer/shorturl
           git pull
           echo Building ShortUrl...
-          cd shorturl/cmd/shorturl
+          cd /home/deployer/shorturl/cmd/shorturl
           go build -o ../../shorturl
           echo Restarting Service...
           sudo systemctl restart shorturl-service.service
