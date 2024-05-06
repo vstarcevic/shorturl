@@ -41,5 +41,13 @@ jobs:
         username: ${{ secrets.USERNAME}}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT}}
-        script: whoami
+        script: 
+          echo Starting deployment for ShortURL
+          echo Pulling from Github
+          cd #
+          cd shorturl
+          git pull
+          cd shorturl/cmd/shorturl
+          go build -o ../../shorturl
+          sudo systemctl restart shorturl-service.service
 
