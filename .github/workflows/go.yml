@@ -41,7 +41,7 @@ jobs:
         username: ${{ secrets.USERNAME}}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT}}
-        script: 
+        script: |
           echo Starting deployment for ShortURL
           echo Pulling from Github...          
           cd /home/deployer/shorturl
