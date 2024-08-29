@@ -42,12 +42,12 @@ func (cfg *Config) shorten(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !strings.HasPrefix(requestPayload.LongUrl, "http") {
+	if !strings.HasPrefix(strings.ToLower(requestPayload.LongUrl), "http") {
 		writeError(w, http.StatusNotAcceptable, errors.New("url must starts with http:// or https://"))
 		return
 	}
 
-	shortUrl, err := database.CreateShortURL(cfg.Db, requestPayload.LongUrl)
+	shortUrl, err := database.CreateShortURL(cfg.Db, strings.ToLower(requestPayload.LongUrl))
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, err)
 		return
