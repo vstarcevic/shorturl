@@ -47,7 +47,7 @@ func (cfg *Config) shorten(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	shortUrl, err := database.CreateShortURL(cfg.Db, strings.ToLower(requestPayload.LongUrl))
+	shortUrl, err := database.CreateShortURL(cfg.Db, requestPayload.LongUrl)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, err)
 		return

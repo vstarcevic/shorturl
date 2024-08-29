@@ -61,5 +61,5 @@ function showSuccessSection() {
 }
 
 function validate() {
-  return document.getElementById("longUrl").value.startsWith("http")
+  return document.getElementById("longUrl").value.toLowerCase().startsWith("http")
 }
