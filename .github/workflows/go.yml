@@ -73,6 +73,6 @@ jobs:
         target: "/home/${{ secrets.USERNAME }}/shorturl/"
     - name: Verify deployment
       run: |
-        sudo systemctl start shorturl-service.service
+        sudo /usr/bin/systemctl restart shorturl-service.service
         sleep 5
         curl -f http://localhost:8080/health || exit 1
