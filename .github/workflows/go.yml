@@ -73,6 +73,16 @@ jobs:
         target: "/home/${{ secrets.USERNAME }}/shorturl/"
     - name: Verify deployment
       run: |
+        echo "--- Debugging Service Location ---"
+      
+        # Check where systemd *thinks* the file is
+        sudo /usr/bin/systemctl show -p FragmentPath shorturl-service.service || echo "Service not in systemd list"
+      
+        echo "---"
+        # Check where the file actually is on disk
+        ls -la /etc/systemd/system/shorturl* || echo "Not in /etc/systemd/system"
+        ls -la /usr/lib/systemd/system/shorturl* || echo "Not in /usr/lib/systemd/system"
+        ls -la /home/${{ secrets.USERNAME }}/shorturl/*.service || echo "Not in user directory"
         sudo /usr/bin/systemctl daemon-reload
         sudo /usr/bin/systemctl restart shorturl-service.service
         sleep 5
