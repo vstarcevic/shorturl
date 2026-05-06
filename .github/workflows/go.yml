@@ -60,7 +60,7 @@ jobs:
           echo "Stopping service..."
           sudo systemctl stop shorturl-service.service
           echo "Backing up old binary..."
-          mv /home/${{ secrets.USERNAME }}/shorturl/shorturl /home/${{ secrets.USERNAME }}/shorturl/shorturl.bak.$(date +%Y%m%d_%H%M%S)
+          mv /home/${{ secrets.USERNAME }}/shorturl/shorturl/home/${{ secrets.USERNAME }}/shorturl/shorturl.bak.$(date +%Y%m%d_%H%M%S)
 
     - name: Deploy binary via SCP
       uses: appleboy/scp-action@master
@@ -69,7 +69,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT}}
-        source: "cmd/shorturl/shorturl"
+        source: "shorturl"
         target: "/home/${{ secrets.USERNAME }}/shorturl/"
     - name: Verify deployment
       run: |
