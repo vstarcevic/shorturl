@@ -28,6 +28,7 @@ jobs:
         path: coverage.out
 
   build-and-deploy:
+    needs: test
     runs-on: ubuntu-latest
     concurrency:
       group: deploy-shorturl
@@ -47,9 +48,9 @@ jobs:
       run: |
         cd cmd/shorturl
         CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o shorturl
-        # -ldflags reduce binary size
+        echo "Binary built successfully"
 
-    - name: Deploy via SSH
+    - name: Backup and stop service
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST}}
@@ -71,19 +72,15 @@ jobs:
         port: ${{ secrets.PORT}}
         source: "shorturl"
         target: "/home/${{ secrets.USERNAME }}/shorturl/"
-    - name: Verify deployment
-      run: |
-        echo "--- Debugging Service Location ---"
-      
-        # Check where systemd *thinks* the file is
-        sudo /usr/bin/systemctl show -p FragmentPath shorturl-service.service || echo "Service not in systemd list"
-      
-        echo "---"
-        # Check where the file actually is on disk 
-        ls -la /etc/systemd/system/shorturl* || echo "Not in /etc/systemd/system"
-        ls -la /usr/lib/systemd/system/shorturl* || echo "Not in /usr/lib/systemd/system"
-        ls -la /home/${{ secrets.USERNAME }}/shorturl/*.service || echo "Not in user directory"
-        sudo /usr/bin/systemctl daemon-reload
-        sudo /usr/bin/systemctl restart shorturl-service.service
-        sleep 5
-        curl -f http://localhost:8080/health || exit 1
+
+    - name: Deploy and verify
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          sudo /usr/bin/systemctl restart shorturl-service.service
+          sleep 5
+          curl -f http://localhost:8080/health || exit 1
